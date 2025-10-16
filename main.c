@@ -8,6 +8,9 @@
 #include <intrinsics.h>
 
 #define LED_PIN (1 << 7)
+#define PIN_CS     (1 << 12)
+#define PIN_DATA   (1 << 15)
+#define PIN_SCLK   (1 << 25)
 
 volatile unsigned int led_state = 0;
 volatile unsigned int pit_counter = 0;
@@ -54,6 +57,42 @@ void usart0_putc(char c)
     while (!(AT91C_BASE_US0->US_CSR & AT91C_US_TXRDY));
     AT91C_BASE_US0->US_THR = c;
 }
+//----------------------------------------
+unsigned short adc_read(void)
+{
+    unsigned short value = 0;
+    int i;
+
+    // Начать преобразование: CS > 0
+    AT91C_BASE_PIOA->PIO_CODR = PIN_CS;
+
+    // Подождать немного — можно просто пару пустых циклов
+    for (volatile int d=0; d<100; d++);
+
+    // Поднять CS > 1, теперь вывод готов к чтению данных
+    AT91C_BASE_PIOA->PIO_SODR = PIN_CS;
+
+    // Немного задержки перед началом тактирования
+    for (volatile int d=0; d<100; d++);
+
+    // Считать 16 бит
+    for (i = 0; i < 16; i++) {
+        // поднять SCLK
+        AT91C_BASE_PIOA->PIO_SODR = PIN_SCLK;
+
+        // Сдвиг и чтение бита
+        value <<= 1;
+        if (AT91C_BASE_PIOA->PIO_PDSR & PIN_DATA)
+            value |= 1;
+
+        // опустить SCLK
+        AT91C_BASE_PIOA->PIO_CODR = PIN_SCLK;
+    }
+
+    return value;
+}
+
+
 
 // ---------------- PIT ----------------
 void PIT_Handler(void)
@@ -76,6 +115,13 @@ void PIT_Handler(void)
             led_state = 1;
             usart0_putc('1');   // отправляем ASCII '1' = 0x31
         }
+        // === Новая часть: чтение АЦП ===
+        unsigned short adc_value = adc_read();
+        char high = (adc_value >> 8) & 0xFF;
+        char low  = adc_value & 0xFF;
+
+        usart0_putc(high);
+        usart0_putc(low);        
     }
 }
 
@@ -88,6 +134,23 @@ __irq void IRQ_Handler(void)
     AT91C_BASE_AIC->AIC_EOICR = 0;
 }
 
+void adc_init(void)
+{
+    // Разрешаем управление пинами через PIO
+    AT91C_BASE_PIOA->PIO_PER = PIN_CS | PIN_DATA | PIN_SCLK;
+
+    // CS и SCLK как выходы, DATA как вход
+    AT91C_BASE_PIOA->PIO_OER = PIN_CS | PIN_SCLK;
+    AT91C_BASE_PIOA->PIO_ODR = PIN_DATA;
+
+    // Уровень по умолчанию
+    AT91C_BASE_PIOA->PIO_SODR = PIN_CS;    // CS=1
+    AT91C_BASE_PIOA->PIO_CODR = PIN_SCLK;  // SCLK=0
+}
+
+
+
+
 // ---------------- MAIN ----------------
 int main(void)
 {
@@ -99,7 +162,9 @@ int main(void)
     AT91C_BASE_PIOA->PIO_PER = LED_PIN;
     AT91C_BASE_PIOA->PIO_OER = LED_PIN;
     AT91C_BASE_PIOA->PIO_SODR = LED_PIN; // OFF по умолчанию
-
+    
+    adc_init();
+    
     // AIC: разрешаем SYS-прерывания (PIT)
     AT91C_BASE_AIC->AIC_IDCR = (1 << AT91C_ID_SYS);
     AT91C_BASE_AIC->AIC_ICCR = (1 << AT91C_ID_SYS);

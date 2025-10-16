@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ELF Linker V7.70.1.11437/W32 for ARM                02/Oct/2025  12:22:41
+# IAR ELF Linker V7.70.1.11437/W32 for ARM                16/Oct/2025  21:24:05
 # Copyright 2007-2016 IAR Systems AB.
 #
 #    Output file  =  C:\IAR_projects\IAR_AI\Lmarena\Debug\Exe\LM_gemini_gpt.out
@@ -40,32 +40,32 @@ __SystemLibrary = DLib
   .intvec          ro code  0x00100000    0x3c  startup.o [1]
                           - 0x0010003c    0x3c
 
-"P2":                                    0x518
-  Veneer           ro code  0x00100100     0x4  - Linker created -
-  .text            ro code  0x00100104   0x1a4  I32DivMod.o [4]
-  .text            ro code  0x001002a8     0x4  IntDivZer.o [4]
-  Veneer           ro code  0x001002ac     0xc  - Linker created -
-  .text            ro code  0x001002b8   0x144  main.o [1]
-  Veneer           ro code  0x001003fc     0x4  - Linker created -
-  .text            ro code  0x00100400    0x10  main.o [1]
-  .text            ro code  0x00100410    0xe4  startup.o [1]
-  Veneer           ro code  0x001004f4     0xc  - Linker created -
-  Veneer           ro code  0x00100500     0xc  - Linker created -
-  Veneer           ro code  0x0010050c     0xc  - Linker created -
-  Veneer           ro code  0x00100518     0xc  - Linker created -
-  .text            ro code  0x00100524    0x2c  cmain.o [4]
-  .text            ro code  0x00100550     0x4  low_level_init.o [3]
-  .text            ro code  0x00100554    0x32  data_init.o [4]
-  .text            ro code  0x00100586     0xa  exit.o [3]
-  .text            ro code  0x00100590    0x20  exit.o [5]
-  Veneer           ro code  0x001005b0     0x4  - Linker created -
-  .text            ro code  0x001005b4    0x10  cexit.o [4]
-  .text            ro code  0x001005c4    0x3c  zero_init3.o [4]
-  .iar.init_table  const    0x00100600    0x10  - Linker created -
-  .text            ro code  0x00100610     0x4  vectortrap.o [4]
-  .text            ro code  0x00100614     0x4  xreturnswi.o [5]
-  .rodata          const    0x00100618     0x0  zero_init3.o [4]
-                          - 0x00100618   0x518
+"P2":                                    0x5a0
+  Veneer           ro code  0x00100100     0xc  - Linker created -
+  .text            ro code  0x0010010c   0x1cc  main.o [1]
+  Veneer           ro code  0x001002d8     0x4  - Linker created -
+  .text            ro code  0x001002dc   0x1a4  I32DivMod.o [4]
+  Veneer           ro code  0x00100480     0x4  - Linker created -
+  .text            ro code  0x00100484    0x10  main.o [1]
+  .text            ro code  0x00100494     0x4  IntDivZer.o [4]
+  .text            ro code  0x00100498    0xe4  startup.o [1]
+  Veneer           ro code  0x0010057c     0xc  - Linker created -
+  Veneer           ro code  0x00100588     0xc  - Linker created -
+  Veneer           ro code  0x00100594     0xc  - Linker created -
+  Veneer           ro code  0x001005a0     0xc  - Linker created -
+  .text            ro code  0x001005ac    0x2c  cmain.o [4]
+  .text            ro code  0x001005d8     0x4  low_level_init.o [3]
+  .text            ro code  0x001005dc    0x32  data_init.o [4]
+  .text            ro code  0x0010060e     0xa  exit.o [3]
+  .text            ro code  0x00100618    0x20  exit.o [5]
+  Veneer           ro code  0x00100638     0x4  - Linker created -
+  .text            ro code  0x0010063c    0x10  cexit.o [4]
+  .text            ro code  0x0010064c    0x3c  zero_init3.o [4]
+  .iar.init_table  const    0x00100688    0x10  - Linker created -
+  .text            ro code  0x00100698     0x4  vectortrap.o [4]
+  .text            ro code  0x0010069c     0x4  xreturnswi.o [5]
+  .rodata          const    0x001006a0     0x0  zero_init3.o [4]
+                          - 0x001006a0   0x5a0
 
 "P3", part 1 of 2:                         0x8
   .bss             zero     0x00200000     0x8  main.o [1]
@@ -98,10 +98,10 @@ Zero (__iar_zero_init3)
     Module            ro code  ro data  rw data
     ------            -------  -------  -------
 C:\IAR_projects\IAR_AI\Lmarena\Debug\Obj: [1]
-    main.o                340                 8
+    main.o                476                 8
     startup.o             288
     -------------------------------------------
-    Total:                628                 8
+    Total:                764                 8
 
 command line: [2]
     -------------------------------------------
@@ -132,7 +132,7 @@ shs_l.a: [5]
 
     Linker created         72       16    6 144
 -----------------------------------------------
-    Grand Total:        1 348       16    6 152
+    Grand Total:        1 484       16    6 152
 
 
 *******************************************************************************
@@ -141,23 +141,23 @@ shs_l.a: [5]
 
 Entry                      Address  Size  Type      Object
 -----                      -------  ----  ----      ------
-.iar.init_table$$Base   0x00100600         --   Gb  - Linker created -
-.iar.init_table$$Limit  0x00100610         --   Gb  - Linker created -
-?main                   0x00100524        Code  Gb  cmain.o [4]
-Abort_Handler           0x00100610        Code  Wk  vectortrap.o [4]
+.iar.init_table$$Base   0x00100688         --   Gb  - Linker created -
+.iar.init_table$$Limit  0x00100698         --   Gb  - Linker created -
+?main                   0x001005ac        Code  Gb  cmain.o [4]
+Abort_Handler           0x00100698        Code  Wk  vectortrap.o [4]
 CSTACK$$Base            0x00200808         --   Gb  - Linker created -
 CSTACK$$Limit           0x00201808         --   Gb  - Linker created -
-FIQ_Handler             0x00100610        Code  Wk  vectortrap.o [4]
+FIQ_Handler             0x00100698        Code  Wk  vectortrap.o [4]
 FIQ_STACK$$Limit        0x00000000         --   Gb  - Linker created -
-IRQ_Handler             0x0010033c  0x34  Code  Gb  main.o [1]
+IRQ_Handler             0x001001f4  0x34  Code  Gb  main.o [1]
 IRQ_STACK$$Base         0x00200008         --   Gb  - Linker created -
 IRQ_STACK$$Limit        0x00200808         --   Gb  - Linker created -
-PIT_Handler             0x001002fb  0x42  Code  Gb  main.o [1]
-Prefetch_Handler        0x00100610        Code  Wk  vectortrap.o [4]
-Region$$Table$$Base     0x00100600         --   Gb  - Linker created -
-Region$$Table$$Limit    0x00100610         --   Gb  - Linker created -
-SWI_Handler             0x00100610        Code  Wk  vectortrap.o [4]
-Undefined_Handler       0x00100610        Code  Wk  vectortrap.o [4]
+PIT_Handler             0x0010019f  0x56  Code  Gb  main.o [1]
+Prefetch_Handler        0x00100698        Code  Wk  vectortrap.o [4]
+Region$$Table$$Base     0x00100688         --   Gb  - Linker created -
+Region$$Table$$Limit    0x00100698         --   Gb  - Linker created -
+SWI_Handler             0x00100698        Code  Wk  vectortrap.o [4]
+Undefined_Handler       0x00100698        Code  Wk  vectortrap.o [4]
 __ICFEDIT_region_RAM_end__ {Abs}
                         0x0020ffff        Data  Gb  command line/config [2]
 __ICFEDIT_region_RAM_start__ {Abs}
@@ -178,28 +178,30 @@ __ICFEDIT_size_svcstack__ {Abs}
                         0x00000400        Data  Gb  command line/config [2]
 __ICFEDIT_size_vectors__ {Abs}
                         0x00000100        Data  Gb  command line/config [2]
-__aeabi_idiv0           0x001002a8        Code  Gb  IntDivZer.o [4]
-__aeabi_uidiv           0x00100104        Code  Gb  I32DivMod.o [4]
-__aeabi_uidivmod        0x00100104        Code  Gb  I32DivMod.o [4]
-__cmain                 0x00100524        Code  Gb  cmain.o [4]
-__exit                  0x00100590  0x20  Code  Gb  exit.o [5]
-__iar_data_init3        0x00100555  0x30  Code  Gb  data_init.o [4]
-__iar_enable_interrupt  0x00100400        Code  Gb  main.o [1]
-__iar_program_start     0x00100410        Code  Gb  startup.o [1]
-__iar_return_from_swi   0x00100614   0x4  Code  Gb  xreturnswi.o [5]
-__iar_zero_init3        0x001005c5  0x3c  Code  Gb  zero_init3.o [4]
-__low_level_init        0x00100551   0x4  Code  Gb  low_level_init.o [3]
+__aeabi_idiv0           0x00100494        Code  Gb  IntDivZer.o [4]
+__aeabi_uidiv           0x001002dc        Code  Gb  I32DivMod.o [4]
+__aeabi_uidivmod        0x001002dc        Code  Gb  I32DivMod.o [4]
+__cmain                 0x001005ac        Code  Gb  cmain.o [4]
+__exit                  0x00100618  0x20  Code  Gb  exit.o [5]
+__iar_data_init3        0x001005dd  0x30  Code  Gb  data_init.o [4]
+__iar_enable_interrupt  0x00100484        Code  Gb  main.o [1]
+__iar_program_start     0x00100498        Code  Gb  startup.o [1]
+__iar_return_from_swi   0x0010069c   0x4  Code  Gb  xreturnswi.o [5]
+__iar_zero_init3        0x0010064d  0x3c  Code  Gb  zero_init3.o [4]
+__low_level_init        0x001005d9   0x4  Code  Gb  low_level_init.o [3]
 __vector                0x00100000        Data  Gb  startup.o [1]
-_call_main              0x00100538        Code  Gb  cmain.o [4]
-_exit                   0x001005b4        Code  Gb  cexit.o [4]
-_main                   0x00100540        Code  Gb  cmain.o [4]
-exit                    0x00100587   0xa  Code  Gb  exit.o [3]
+_call_main              0x001005c0        Code  Gb  cmain.o [4]
+_exit                   0x0010063c        Code  Gb  cexit.o [4]
+_main                   0x001005c8        Code  Gb  cmain.o [4]
+adc_init                0x00100229  0x1a  Code  Gb  main.o [1]
+adc_read                0x0010014f  0x50  Code  Gb  main.o [1]
+exit                    0x0010060f   0xa  Code  Gb  exit.o [3]
 led_state               0x00200000   0x4  Data  Gb  main.o [1]
-low_level_init          0x00100460        Code  Gb  startup.o [1]
-main                    0x00100371  0x5a  Code  Gb  main.o [1]
+low_level_init          0x001004e8        Code  Gb  startup.o [1]
+main                    0x00100243  0x5e  Code  Gb  main.o [1]
 pit_counter             0x00200004   0x4  Data  Gb  main.o [1]
-usart0_init             0x001002b9  0x36  Code  Gb  main.o [1]
-usart0_putc             0x001002ef   0xc  Code  Gb  main.o [1]
+usart0_init             0x0010010d  0x36  Code  Gb  main.o [1]
+usart0_putc             0x00100143   0xc  Code  Gb  main.o [1]
 
 
 [1] = C:\IAR_projects\IAR_AI\Lmarena\Debug\Obj
@@ -208,7 +210,7 @@ usart0_putc             0x001002ef   0xc  Code  Gb  main.o [1]
 [4] = rt4t_al.a
 [5] = shs_l.a
 
-  1 348 bytes of readonly  code memory
+  1 484 bytes of readonly  code memory
      16 bytes of readonly  data memory
   6 152 bytes of readwrite data memory
 
