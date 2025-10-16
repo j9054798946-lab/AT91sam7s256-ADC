@@ -63,35 +63,32 @@ unsigned short adc_read(void)
     unsigned short value = 0;
     int i;
 
-    // Начать преобразование: CS > 0
-    AT91C_BASE_PIOA->PIO_CODR = PIN_CS;
+    // --- 1. Начать цикл измерения ---
+    AT91C_BASE_PIOA->PIO_CODR = PIN_CS;   // CS = 0 (начало цикла)
 
-    // Подождать немного — можно просто пару пустых циклов
-    for (volatile int d=0; d<100; d++);
+    // --- 2. Пропустить первые 4 такта (служебные) ---
+    for (i = 0; i < 4; i++)
+    {
+        AT91C_BASE_PIOA->PIO_CODR = PIN_SCLK;  // SCLK = 0
+        AT91C_BASE_PIOA->PIO_SODR = PIN_SCLK;  // SCLK = 1
+    }
 
-    // Поднять CS > 1, теперь вывод готов к чтению данных
-    AT91C_BASE_PIOA->PIO_SODR = PIN_CS;
+    // --- 3. Считать 16 бит данных ---
+    for (i = 0; i < 16; i++)
+    {
+        AT91C_BASE_PIOA->PIO_CODR = PIN_SCLK;  // такт вниз
+        AT91C_BASE_PIOA->PIO_SODR = PIN_SCLK;  // такт вверх
 
-    // Немного задержки перед началом тактирования
-    for (volatile int d=0; d<100; d++);
-
-    // Считать 16 бит
-    for (i = 0; i < 16; i++) {
-        // поднять SCLK
-        AT91C_BASE_PIOA->PIO_SODR = PIN_SCLK;
-
-        // Сдвиг и чтение бита
         value <<= 1;
         if (AT91C_BASE_PIOA->PIO_PDSR & PIN_DATA)
             value |= 1;
-
-        // опустить SCLK
-        AT91C_BASE_PIOA->PIO_CODR = PIN_SCLK;
     }
+
+    // --- 4. Завершить цикл ---
+    AT91C_BASE_PIOA->PIO_SODR = PIN_CS;   // CS = 1 (конец цикла)
 
     return value;
 }
-
 
 
 // ---------------- PIT ----------------
@@ -117,6 +114,7 @@ void PIT_Handler(void)
         }
         // === Новая часть: чтение АЦП ===
         unsigned short adc_value = adc_read();
+        //adc_value = 0xA410;
         char high = (adc_value >> 8) & 0xFF;
         char low  = adc_value & 0xFF;
 
